@@ -1,0 +1,13 @@
+{
+  "lint": {
+    "include": ["esbuild.ts", "deno.json", "public/", "src/", "tests/"]
+  },
+  "fmt": {
+    "include": ["esbuild.ts", "deno.json", "public/", "src/", "tests/"]
+  },
+  "tasks": {
+    "init": "deno cache --node-modules-dir src/index.jsx",
+    "build": "deno run -A esbuild.ts build"
+  },
+  "exclude": ["dist/"]
+}
