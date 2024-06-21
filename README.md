@@ -14,6 +14,10 @@ Instead of building in the NodeJS space, I was interested in using [deno](https:
 
 In fact, it is an easy setup to get working with React using pure JavaScript (plus JSX obviously).
 
+### Development
+
+Get dependencies via `deno task init` and bundle the JS via `deno task build`. That is all there is to do.
+
 ## Pitfalls
 
 - I did not figure out how to import CSS files in `.jsx` for esbuild to recognize and bundle it.

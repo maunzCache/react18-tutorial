@@ -7,7 +7,7 @@ X 1. For the current move only, show “You are at move #…” instead of a but
 X 2. Rewrite Board to use two loops to make the squares instead of hardcoding them.
 X 3. Add a toggle button that lets you sort the moves in either ascending or descending order.
 X 4. When someone wins, highlight the three squares that caused the win (and when no one wins, display a message about the result being a draw).
-5. Display the location for each move in the format (row, col) in the move history list.
+X 5. Display the location for each move in the format (row, col) in the move history list.
 */
 
 import React, { useState } from "react";
@@ -94,11 +94,25 @@ export default function Game() {
     setReverseMoves(!reverseMoves);
   }
 
+  function getMoveCoordinates(move, squares) {
+    const previousHistory = history[move - 1];
+    const moveCoordinates = [null, null]; // row, column
+    for (index in [...Array(9).keys()]) {
+      if (squares[index] != previousHistory[index]) {
+        moveCoordinates[0] = Math.floor(index / 3);
+        moveCoordinates[1] = index % 3;
+      }
+    }
+
+    return moveCoordinates;
+  }
+
   const moves = history.map((squares, move) => {
     let description;
     if (currentMove === move) {
       if (move > 0) {
-        description = "Currently at move #" + move;
+        const moveCoordinates = getMoveCoordinates(move, squares);
+        description = "Currently at move #" + move + " (" + moveCoordinates + ")";
       } else {
         description = "Currently at game start";
       }
@@ -110,7 +124,8 @@ export default function Game() {
     }
 
     if (move > 0) {
-      description = "Go to move #" + move;
+      const moveCoordinates = getMoveCoordinates(move, squares);
+      description = "Go to move #" + move + " (" + moveCoordinates + ")";
     } else {
       description = "Go to game start";
     }
